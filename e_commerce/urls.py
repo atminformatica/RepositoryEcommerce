@@ -2,25 +2,27 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from django.contrib import admin
-#from django.contrib.auth.views import LogoutView 
+from django.contrib.auth.views import LogoutView 
 from django.urls import path, include
 from django.views.generic import TemplateView
 from carts.views import cart_home, cart_detail_api_view
-from accounts.views import login_page, register_page, logout_page, guest_register_view
+from accounts.views import LoginView, RegisterView, LogoutView, guest_register_view
 from addresses.views import checkout_address_create_view, checkout_address_reuse_view
 from .views import (home_page,  
                     about_page, 
-                    contact_page,
+                    contact_page
 )
 
 urlpatterns = [
     path('', home_page, name='home'),
     path('about/', about_page, name='about'),
     path('contact/', contact_page, name='contact'),
-    path('login/', login_page, name='login'),
-    #path('logout/', LogoutView.as_view(), name='logout'),
-    path('logout/', logout_page, name='logout'),
-    path('register/', register_page, name='register'),
+    #path('login/', login_page, name='login'),
+    #path('logout/', logout_page, name='logout'),
+    #path('register/', register_page, name='register'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('register/', RegisterView.as_view(), name='register'),
+    path('logout/', LogoutView.as_view(), name='logout'),
     path('register/guest/', guest_register_view, name='guest_register'),
     path('products/', include("products.urls", namespace="products")),
     path('search/', include("search.urls", namespace="search")),
